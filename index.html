@@ -21,6 +21,18 @@
 
     gtag('config', 'G-PYVRSFMDRL');
   </script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['$$', '$$']],
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -112,8 +124,7 @@
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
+            <span class="author-block"><sup>1</sup>Anonymous Affiliation</span>
           </div>
 
           <div class="column has-text-centered">
@@ -138,7 +149,7 @@
                 </a>
               </span>
               <!-- Video Link. -->
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -146,7 +157,7 @@
                   </span>
                   <span>Video</span>
                 </a>
-              </span>
+              </span> -->
               <!-- Code Link. -->
               <span class="link-block">
                 <a href="https://github.com/google/nerfies"
@@ -158,7 +169,7 @@
                   </a>
               </span>
               <!-- Dataset Link. -->
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <a href="https://github.com/google/nerfies/releases/tag/0.1"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -166,6 +177,7 @@
                   </span>
                   <span>Data</span>
                   </a>
+                </span> -->
             </div>
 
           </div>
@@ -192,7 +204,7 @@
 </section>
 
 
-<section class="hero is-light is-small">
+<!-- <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
@@ -247,7 +259,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 <section class="section">
@@ -257,37 +269,48 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
-          </p>
-          <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
-          </p>
-          <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
-          </p>
+          Safely executing dynamic manipulation tasks --- like pulling a box from under a stack --- in cluttered, open-world environments is challenging. Robots must identify implicit safety constraints (e.g., avoid collapsing stacks or hitting fragile items) while simultaneously reasoning about the 
+          combinatorially large number of interactions and their long-term safety consequences (e.g., aggressively pulling an object from under a stack will cause it to fall and hit nearby objects). 
+          In this work, we present <em>VLTSafe: Vision-Language guided Transformers for Safe Manipulation</em>, a framework for safe dynamic manipulation that leverages vision-language models (VLMs) to translate semantic safety concepts into geometric constraints, and object-centric transformers to learn generalizable low-level safe policies.
+          To tractably learn policies that scale well to complex cluttered settings, we: (i) utilize a transformer architecture, representing objects as tokens, enabling a \textit{single} policy to be deployed in variable degrees of clutter; (ii) consider diverse combinations of constraint types during training, enabling generalization to novel test-time constraint compositions; and (iii) optimize a reach-avoid reinforcement learning objective to train a parameterized policy that reasons about long-term safety as well as task completion.
+          At test time, <em>VLTSafe</em> uses a VLM to identify relevant geometric constraints from RGB images and a textual task description, enabling open-world constraint specification.
+          In both simulation and hardware experiments with a Franka Panda arm, <i>VLTSafe</i> infers nuanced constraints and goals (e.g., soft loofahs can safely be pushed out of the way) that cannot be easily identified with hand-designed heuristics. Furthermore, the learned safe policy shows zero-shot generalization to highly cluttered scenes and novel constraint compositions owing to the transformer's time-varying attention over \textit{relevant} objects.
         </div>
       </div>
     </div>
     <!--/ Abstract. -->
+
+    <!-- Method image. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="method-image">
+          <img src="./static/images/vltsafe_overview.png" alt="The VLT-Safe method." />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            (left) In simulation, we train a parameterized object-centric transformer policy using reach-avoid reinforcement learning with diverse environments, tasks, and safety constraints. (right) At test time, given an RGB image, task description, and a constraint vocabulary, a vision-language model (VLM) infers the relevant semantic goals and safety constraints for each object. Our training recipe enables zero-shot sim2real transfer and generalization to novel constraint compositions in highly cluttered scenes.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Method image. -->
+
+    <!-- Method image. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">VLTSafe System Architecture</h2>
+        <div class="method-image">
+          <img src="./static/images/architecture.png" alt="The VLT-Safe method." />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            VLTSafe System Architecture: Actor and critic networks are object-centric transformer-based models. Observations are augmented with parameters of the target \( \tau \) and failure set \(\phi\) and tokenized. These tokens are processed using multi-head self-attention with a custom attention mask. Output tokens are aggregated and used to output action (actor) and value estimate (critic).
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Method image. -->
 
     <!-- Paper video. -->
     <div class="columns is-centered has-text-centered">
@@ -310,7 +333,7 @@
     <div class="columns is-centered">
 
       <!-- Visual Effects. -->
-      <div class="column">
+      <!-- <div class="column">
         <div class="content">
           <h2 class="title is-3">Visual Effects</h2>
           <p>
@@ -322,11 +345,11 @@
                     type="video/mp4">
           </video>
         </div>
-      </div>
+      </div> -->
       <!--/ Visual Effects. -->
 
       <!-- Matting. -->
-      <div class="column">
+      <!-- <div class="column">
         <h2 class="title is-3">Matting</h2>
         <div class="columns is-centered">
           <div class="column content">
@@ -341,17 +364,17 @@
           </div>
 
         </div>
-      </div>
+      </div> -->
     </div>
     <!--/ Matting. -->
 
     <!-- Animation. -->
-    <div class="columns is-centered">
+    <!-- <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
+        <h2 class="title is-3">Animation</h2> -->
 
         <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
+        <!-- <h3 class="title is-4">Interpolating states</h3>
         <div class="content has-text-justified">
           <p>
             We can also animate the scene by interpolating the deformation latent codes of two input
@@ -381,11 +404,11 @@
             <p class="is-bold">End Frame</p>
           </div>
         </div>
-        <br/>
+        <br/> -->
         <!--/ Interpolating. -->
 
         <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
+        <!-- <h3 class="title is-4">Re-rendering the input video</h3>
         <div class="content has-text-justified">
           <p>
             Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
@@ -402,7 +425,7 @@
             <source src="./static/videos/replay.mp4"
                     type="video/mp4">
           </video>
-        </div>
+        </div> -->
         <!--/ Re-rendering. -->
 
       </div>
@@ -415,7 +438,7 @@
       <div class="column is-full-width">
         <h2 class="title is-3">Related Links</h2>
 
-        <div class="content has-text-justified">
+        <!-- <div class="content has-text-justified">
           <p>
             There's a lot of excellent work that was introduced around the same time as ours.
           </p>
@@ -432,7 +455,7 @@
           <p>
             There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
           </p>
-        </div>
+        </div> -->
       </div>
     </div>
     <!--/ Concurrent Work. -->
@@ -444,11 +467,11 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
+    <pre><code>@article{vltsafe2025,
+      author    = {Anonymous Author},
+      title     = {Vision-Language Guided Safe Dynamic Manipulation via Object-Centric Transformers},
+      journal   = {arXiv},
+      year      = {20XX},
 }</code></pre>
   </div>
 </section>

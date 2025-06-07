@@ -272,9 +272,9 @@
           Safely executing dynamic manipulation tasks --- like pulling a box from under a stack --- in cluttered, open-world environments is challenging. Robots must identify implicit safety constraints (e.g., avoid collapsing stacks or hitting fragile items) while simultaneously reasoning about the 
           combinatorially large number of interactions and their long-term safety consequences (e.g., aggressively pulling an object from under a stack will cause it to fall and hit nearby objects). 
           In this work, we present <em>VLTSafe: Vision-Language guided Transformers for Safe Manipulation</em>, a framework for safe dynamic manipulation that leverages vision-language models (VLMs) to translate semantic safety concepts into geometric constraints, and object-centric transformers to learn generalizable low-level safe policies.
-          To tractably learn policies that scale well to complex cluttered settings, we: (i) utilize a transformer architecture, representing objects as tokens, enabling a \textit{single} policy to be deployed in variable degrees of clutter; (ii) consider diverse combinations of constraint types during training, enabling generalization to novel test-time constraint compositions; and (iii) optimize a reach-avoid reinforcement learning objective to train a parameterized policy that reasons about long-term safety as well as task completion.
+          To tractably learn policies that scale well to complex cluttered settings, we: (i) utilize a transformer architecture, representing objects as tokens, enabling a <em>single</em> policy to be deployed in variable degrees of clutter; (ii) consider diverse combinations of constraint types during training, enabling generalization to novel test-time constraint compositions; and (iii) optimize a reach-avoid reinforcement learning objective to train a parameterized policy that reasons about long-term safety as well as task completion.
           At test time, <em>VLTSafe</em> uses a VLM to identify relevant geometric constraints from RGB images and a textual task description, enabling open-world constraint specification.
-          In both simulation and hardware experiments with a Franka Panda arm, <i>VLTSafe</i> infers nuanced constraints and goals (e.g., soft loofahs can safely be pushed out of the way) that cannot be easily identified with hand-designed heuristics. Furthermore, the learned safe policy shows zero-shot generalization to highly cluttered scenes and novel constraint compositions owing to the transformer's time-varying attention over \textit{relevant} objects.
+          In both simulation and hardware experiments with a Franka Panda arm, <i>VLTSafe</i> infers nuanced constraints and goals (e.g., soft loofahs can safely be pushed out of the way) that cannot be easily identified with hand-designed heuristics. Furthermore, the learned safe policy shows zero-shot generalization to highly cluttered scenes and novel constraint compositions owing to the transformer's time-varying attention over <em>relevant</em> objects.
         </div>
       </div>
     </div>
@@ -296,7 +296,7 @@
     </div>
     <!--/ Method image. -->
 
-    <!-- Method image. -->
+    <!-- Architecture image. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">VLTSafe System Architecture</h2>
@@ -310,7 +310,37 @@
         </div>
       </div>
     </div>
-    <!--/ Method image. -->
+    <!--/ Architecture image. -->
+
+    <!-- Simulation Results image. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Simulation Expreiments</h2>
+        <div class="method-image">
+          <img src="./static/images/vltsafe_sim_table.png" alt="The VLT-Safe method." />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <b>Policy Architecture vs. Performance:</b> Comparison of our method against baselines in two training domains, <em>AllFragileConst</em> and <em>RandomConst</em>.
+          </p>
+          <p>
+            <b>Methods:</b>  We compare three policy architectures: <span style="color: orange; font-weight: bold;">VLTSafe</span> which is our object-centric transformer architecture <em>with</em> masking, <span style="color: purple; font-weight: bold;">VLTSafe-NoMask</span> which has no masking, and <span style="color: gray; font-weight: bold;">MLP</span>, an MLP policy architecture. To ensure a fair comparison, we kept the representation capacity (number of trainable parameters) roughly the same across all models. 
+          </p>
+          <p>
+            <b>Metrics:</b> We measure (1) <em>success rate</em> (SafeSucc %) defined as the percentage of trajectories that complete the task safely (i.e., satisfy reach and avoid), (2) <em>stack safety violation rate</em> (StackFail %) defined as the top cereal block moving outside of safety limits, and (3) <em>object safety violation rate</em> (ObjFail %) percentage of objects not in the stack that are unsafely interacted with. 
+          </p>
+        </div>
+        <div class="method-image">
+          <img src="./static/images/gen_obj_corl_split.png" alt="The VLT-Safe method." />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <b>Generalization: Varying Degrees of Clutter.</b> Performance variation as the number of objects is varied in the test scenario. Both <span style="color: orange; font-weight: bold;">VLTSafe</span> vs <span style="color: purple; font-weight: bold;">VLTSafe-NoMask</span> are trained in the <em>AllFragileConst</em> domain with six objects. Black dotted line represents the number of objects seen during training.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Simulation Results image. -->
 
     <!-- Paper video. -->
     <!-- <div class="columns is-centered has-text-centered">
@@ -434,9 +464,9 @@
 
 
     <!-- Concurrent Work. -->
-    <div class="columns is-centered">
+    <!-- <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
+        <h2 class="title is-3">Related Links</h2> -->
 
         <!-- <div class="content has-text-justified">
           <p>
@@ -456,8 +486,8 @@
             There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
           </p>
         </div> -->
-      </div>
-    </div>
+      <!-- </div>
+    </div> -->
     <!--/ Concurrent Work. -->
 
   </div>

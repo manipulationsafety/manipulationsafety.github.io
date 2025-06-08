@@ -131,21 +131,21 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
+                <a href="https://manipulationsafety.github.io/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>Paper</span>
+                  <span>Paper (coming soon)</span>
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
+                <a href="https://manipulationsafety.github.io/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
-                  <span>arXiv</span>
+                  <span>arXiv (coming soon)</span>
                 </a>
               </span>
               <!-- Video Link. -->
@@ -160,12 +160,12 @@
               </span> -->
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href="https://manipulationsafety.github.io/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Code (coming soon)</span>
                   </a>
               </span>
               <!-- Dataset Link. -->
@@ -289,7 +289,7 @@
         </div>
         <div class="content has-text-justified">
           <p>
-            (left) In simulation, we train a parameterized object-centric transformer policy using reach-avoid reinforcement learning with diverse environments, tasks, and safety constraints. (right) At test time, given an RGB image, task description, and a constraint vocabulary, a vision-language model (VLM) infers the relevant semantic goals and safety constraints for each object. Our training recipe enables zero-shot sim2real transfer and generalization to novel constraint compositions in highly cluttered scenes.
+            <b>Figure 1.</b> (left) In simulation, we train a parameterized object-centric transformer policy using reach-avoid reinforcement learning with diverse environments, tasks, and safety constraints. (right) At test time, given an RGB image, task description, and a constraint vocabulary, a vision-language model (VLM) infers the relevant semantic goals and safety constraints for each object. Our training recipe enables zero-shot sim2real transfer and generalization to novel constraint compositions in highly cluttered scenes.
           </p>
         </div>
       </div>
@@ -305,7 +305,7 @@
         </div>
         <div class="content has-text-justified">
           <p>
-            VLTSafe System Architecture: Actor and critic networks are object-centric transformer-based models. Observations are augmented with parameters of the target \( \tau \) and failure set \(\phi\) and tokenized. These tokens are processed using multi-head self-attention with a custom attention mask. Output tokens are aggregated and used to output action (actor) and value estimate (critic).
+            <b>Figure 2.</b> VLTSafe System Architecture: Actor and critic networks are object-centric transformer-based models. Observations are augmented with parameters of the target \( \tau \) and failure set \(\phi\) and tokenized. These tokens are processed using multi-head self-attention with a custom attention mask. Output tokens are aggregated and used to output action (actor) and value estimate (critic).
           </p>
         </div>
       </div>
@@ -315,13 +315,13 @@
     <!-- Simulation Results image. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Simulation Expreiments</h2>
+        <h2 class="title is-3">Simulation Experiments</h2>
         <div class="method-image">
           <img src="./static/images/vltsafe_sim_table.png" alt="The VLT-Safe method." />
         </div>
         <div class="content has-text-justified">
           <p>
-            <b>Policy Architecture vs. Performance:</b> Comparison of our method against baselines in two training domains, <em>AllFragileConst</em> and <em>RandomConst</em>.
+            <b>Figure 3. Policy Architecture vs. Performance:</b> Comparison of our method against baselines in two training domains, <em>AllFragileConst</em> and <em>RandomConst</em>.
           </p>
           <p>
             <b>Methods:</b>  We compare three policy architectures: <span style="color: orange; font-weight: bold;">VLTSafe</span> which is our object-centric transformer architecture <em>with</em> masking, <span style="color: purple; font-weight: bold;">VLTSafe-NoMask</span> which has no masking, and <span style="color: gray; font-weight: bold;">MLP</span>, an MLP policy architecture. To ensure a fair comparison, we kept the representation capacity (number of trainable parameters) roughly the same across all models. 
@@ -335,12 +335,30 @@
         </div>
         <div class="content has-text-justified">
           <p>
-            <b>Generalization: Varying Degrees of Clutter.</b> Performance variation as the number of objects is varied in the test scenario. Both <span style="color: orange; font-weight: bold;">VLTSafe</span> vs <span style="color: purple; font-weight: bold;">VLTSafe-NoMask</span> are trained in the <em>AllFragileConst</em> domain with six objects. Black dotted line represents the number of objects seen during training.
+            <b>Figure 4. Generalization: Varying Degrees of Clutter.</b> Performance variation as the number of objects is varied in the test scenario. Both <span style="color: orange; font-weight: bold;">VLTSafe</span> vs <span style="color: purple; font-weight: bold;">VLTSafe-NoMask</span> are trained in the <em>AllFragileConst</em> domain with six objects. Black dotted line represents the number of objects seen during training.
           </p>
         </div>
       </div>
     </div>
     <!--/ Simulation Results image. -->
+
+    <!-- Real World Results image. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Real World Experiments</h2>
+        <div class="method-image">
+          <img src="./static/images/vltsafe_real_world.png" alt="The VLT-Safe method." />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <b>Figure 5. Real-world deployment:</b> Zero-shot sim-to-real transfer of a policy trained in simulation (<em>RandomConst</em>, 6 objects) to a real-world setting with 8 objects. Constraints are first inferred using a VLM. As the robot pulls the blue box from under the red one, it makes allowable contact with the blue plush toy, then lifts to avoid the bowl and places the box safely in the goal region, away from the fragile porcelain mug.
+          </p>
+          <p>
+            <b>Sim-to-Real</b> We deploy policies trained entirely in simulation directly in the real world, without any real-world fine-tuning. The experimental setup—including the robot's state space and the object configurations on the table closely matches that of the simulation environment, enabling zero-shot transfer of policies trained in simulation using object-centric observations, directly in the real world. We deploy the policy trained in the <em>RandomConst</em> simulation domain. This policy was trained considering six objects in the scene, however we test in scenes containing up to eight objects. 
+          </p>
+      </div>
+    </div>
+    <!--/ Real world Results image. -->
 
     <!-- Paper video. -->
     <!-- <div class="columns is-centered has-text-centered">

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Vision-Language Guided Safe Dynamic Manipulation via Object-Centric Transformers">
+  <meta name="keywords" content="manipulation, transformers, safety">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vision-Language Guided Safe Dynamic Manipulation via Object-Centric Transformers</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['$$', '$$']],
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Vision-Language Guided Safe Dynamic Manipulation via Object-Centric Transformers</h1>
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="http://authorwebsite.com">Author name Bouaziz</a><sup>2</sup>,
+            </span>
+          </div>
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Author Institute Name</span>
+            <p>Author University</p>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://manipulationsafety.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://manipulationsafety.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (coming soon)</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://manipulationsafety.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+                </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay controls muted loop playsinline height="100%">
+        <source src="./static/videos/vltsafe_teaser_final_cropped.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span style="color: #ff9500; font-weight: bold;">VLTSafe</span>  is a framework for safe dynamic manipulation that leverages vision-language models to translate semantic safety concepts into geometric constraints, and object-centric transformers to learn generalizable low-level safe policies.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          Safely executing dynamic manipulation tasks --- like pulling a box from under a stack --- in cluttered, open-world environments is challenging. Robots must identify implicit safety constraints (e.g., avoid collapsing stacks or hitting fragile items) while simultaneously reasoning about the 
+          combinatorially large number of interactions and their long-term safety consequences (e.g., aggressively pulling an object from under a stack will cause it to fall and hit nearby objects). 
+          In this work, we present <em>VLTSafe: Vision-Language guided Transformers for Safe Manipulation</em>, a framework for safe dynamic manipulation that leverages vision-language models (VLMs) to translate semantic safety concepts into geometric constraints, and object-centric transformers to learn generalizable low-level safe policies.
+          To tractably learn policies that scale well to complex cluttered settings, we: (i) utilize a transformer architecture, representing objects as tokens, enabling a <em>single</em> policy to be deployed in variable degrees of clutter; (ii) consider diverse combinations of constraint types during training, enabling generalization to novel test-time constraint compositions; and (iii) optimize a reach-avoid reinforcement learning objective to train a parameterized policy that reasons about long-term safety as well as task completion.
+          At test time, <em>VLTSafe</em> uses a VLM to identify relevant geometric constraints from RGB images and a textual task description, enabling open-world constraint specification.
+          In both simulation and hardware experiments with a Franka Panda arm, <i>VLTSafe</i> infers nuanced constraints and goals (e.g., soft loofahs can safely be pushed out of the way) that cannot be easily identified with hand-designed heuristics. Furthermore, the learned safe policy shows zero-shot generalization to highly cluttered scenes and novel constraint compositions owing to the transformer's time-varying attention over <em>relevant</em> objects.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Method image. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="method-image">
+          <img src="./static/images/vltsafe_overview.png" alt="The VLT-Safe method."/>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <b>Figure 1.</b> (left) In simulation, we train a parameterized object-centric transformer policy using reach-avoid reinforcement learning with diverse environments, tasks, and safety constraints. (right) At test time, given an RGB image, task description, and a constraint vocabulary, a vision-language model (VLM) infers the relevant semantic goals and safety constraints for each object. Our training recipe enables zero-shot sim2real transfer and generalization to novel constraint compositions in highly cluttered scenes.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Method image. -->
+
+    <!-- Architecture image. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">VLTSafe System Architecture</h2>
+        <div class="method-image">
+          <img src="./static/images/architecture.png" alt="The VLT-Safe method."/>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <b>Figure 2.</b> VLTSafe System Architecture: Actor and critic networks are object-centric transformer-based models. Observations are augmented with parameters of the target \( \tau \) and failure set \(\phi\) and tokenized. These tokens are processed using multi-head self-attention with a custom attention mask. Output tokens are aggregated and used to output action (actor) and value estimate (critic).
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Architecture image. -->
+
+    <!-- Simulation Results image. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Simulation Experiments</h2>
+        <h3 class="title is-5">How much does the transformer policy architecture influence task success?</h3>
+        
+        <div class="content has-text-justified">
+          <p>
+            <b>Methods:</b>  We compare three policy architectures: <span style="color: #ff9500; font-weight: bold;">VLTSafe</span> which is our object-centric transformer architecture <em>with</em> masking, <span style="color: #850f67; font-weight: bold;">VLTSafe-NoMask</span> which has no masking, and <span style="color: gray; font-weight: bold;">MLP</span>, an MLP policy architecture. 
+          </p>
+          <p>
+            <b>Metrics:</b> We measure (1) <em>success rate</em> (SafeSucc %) satisfy reach and avoid, (2) <em>stack safety violation rate</em> (StackFail %), and (3) <em>object safety violation rate</em> (ObjFail %). 
+          </p>
+          <p>
+            <b>Domains:</b> (1) <em>AllFragileConst</em>: All objects are assumed to be fragile, (2) <em>RandomConst</em>: Constraints for each object are randomly sampled (from the set of constraints) at the start of each episode, and (3) <em>FixedConst</em>: Constraints are fixed for each object at the beginning of training. 
+          </p>
+          <div class="method-image">
+            <img src="./static/images/vltsafe_sim_table.png" alt="The VLT-Safe method." />
+            <figcaption class="has-text-centered" style="font-size: small;">
+              <b>Figure 3.</b> Policy Architecture vs. Performance: Comparison of our method against baselines in two training domains, <em>AllFragileConst</em> and <em>RandomConst</em>.
+            </figcaption>
+          </div>
+          <br>
+          <p>
+            <b>Results:</b> <span style="color: #ff9500; font-weight: bold;">VLTSafe</span> outperforms baselines with highest safe success rate and lowest failures rates. The use of masking significantly helps the policy by restricting attention to most "relevant" objects and focussing attention on critical near-term interactions. <span style="color: gray; font-weight: bold;">MLP</span> fails to learn safe policies that satisfy complex interactive constraints.
+          </p>
+        </div>
+
+        <h3 class="title is-5">How well can <span style="color: #ff9500; font-weight: bold;">VLTSafe</span> generalize to varying degrees of test-time clutter?</h3>
+        <div class="method-image">
+          <img src="./static/images/gen_obj_corl_split.png" alt="The VLT-Safe method." />
+          <figcaption class="has-text-centered" style="font-size: small;">
+            <b>Figure 4.</b> Performance variation as the number of objects is varied in the test scenario. Both <span style="color: #ff9500; font-weight: bold;">VLTSafe</span> vs <span style="color: #850f67; font-weight: bold;">VLTSafe-NoMask</span> are trained in the <em>AllFragileConst</em> domain with six objects. Black dotted line represents the number of objects seen during training.
+          </figcaption>
+        </div>
+        <br>
+        <div class="content has-text-justified">
+          <p>
+            <b>Results:</b> With <span style="color: #ff9500; font-weight: bold;">VLTSafe</span> we see a 29% decrease in the safe success rate when we double the number of objects from 6 to 12, while with <span style="color: #850f67; font-weight: bold;">VLTSafe-NoMask</span> we see a 60.5% decrease, showing that masking enables better generalization to test-time clutter. Moreover, <span style="color: #ff9500; font-weight: bold;">VLTSafe</span> maintains a near-zero StackFail rate, while <span style="color: #850f67; font-weight: bold;">VLTSafe-NoMask</span> has a 20% StackFail rate, showing that masking focuses attention to critical near-term interactions without being `distracted' by the apparent complexity of the task.
+          </p>
+        </div>
+
+        <h3 class="title is-5">How well does <span style="color: #ff9500; font-weight: bold;">VLTSafe</span> generalize to novel, test-time constraint compositions?</h3>
+        <div class="method-image">
+          <img src="./static/images/gen_const_comp.png" alt="The VLT-Safe method." style="width: 50%; height: auto;"/>
+          <figcaption class="has-text-centered" style="font-size: small;">
+            <b>Figure 5.</b> Evaluating policies trained in <em>FixedConst</em> and <em>RandomConst</em> domains with six objects, in <em>RandomConst</em> domain with increasing number of objects.
+          </figcaption>
+        </div>
+        <br>
+        <div class="content has-text-justified">
+          <p>
+            <b>Results:</b> <span style="color: #ff9500; font-weight: bold;">VLTSafe</span> trained with random combinations of constraints exhibits better generalization capabilities, compared to training with <em>FixedConst</em>, since it sees a larger variation in constraint compositions during training. However, we note that this performance gap quickly diminishes as the environment complexity increases and the task becomes significantly more challenging than the train setting.
+          </p>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Simulation Results image. -->
+
+    <!-- Real World Results image. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Real World Experiments</h2>
+        <div class="method-image">
+          <img src="./static/images/real_world_3_rollouts_vlm.png" alt="The VLT-Safe method." />
+          <!-- <figcaption class="has-text-centered" style="font-size: small;">
+            <b>Figure 6.</b> Real-world deployment: Zero-shot sim-to-real transfer of a policy trained in simulation (<em>RandomConst</em>, 6 objects) to a real-world settings with (A) 8, (B) 10 and (C) 14 objects. Constraints and target are first inferred using a VLM. In (A) and (B) the VLM is asked to specify constraints based on common sense reasoning while in (C) the VLM is directed to strictly avoid food shaped objects. As the robot pulls the blue box from under the red one, it makes allowable contact with the soft/durable objects, moves around or lifts up to avoid fragile objects and places the box safely in the goal regions deemed safe by the VLM.
+          </figcaption> -->
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <b>Zero-shot sim-to-real transfer</b> of a policy trained in simulation (<em>RandomConst</em>, 6 objects) to a real-world settings with (A) 8, (B) 10 and (C) 14 objects. 
+            <br>
+            In (A) and (B), the VLM is asked to specify constraints based on common sense reasoning, hence, soft objects are assigned the <span style="font-family: 'Courier New', Courier, monospace;">any-contact</span> constraint, while mugs and electronic items—considered safety-critical—are labeled as fragile <span style="font-family: 'Courier New', Courier, monospace;">no-contact</span>. 
+            When prompted to choose between two target sets—one containing soft toys, and the other containing a porcelain mug/electronics—the VLM selects the former, as interactions with soft objects are safer. During execution in (A), the robot briefly contacts the blue plush toy while extracting the blue box—an acceptable interaction—then lifts the end-effector to avoid colliding with a nearby bowl. It ultimately places the box safely atop the #ff9500 loofah and blue ball, both of which are deemed safe for contact. 
+            <br>
+            In (C), the VLM is given explicit instructions to consider food-shaped objects as fragile. Consequently, these objects are assigned the constraint <span style="font-family: 'Courier New', Courier, monospace;">no-contact</span>, and the goal regions are selected to avoid them. Notably, electronics—previously considered <span style="font-family: 'Courier New', Courier, monospace;">no-contact</span> in (A) and (B)—are now assigned <span style="font-family: 'Courier New', Courier, monospace;">soft-contact</span> in (C), in accordance with the user’s updated instructions. This highlights the VLM’s capacity to interpret user intent and adapt task constraints accordingly. 
+          </p>
+      </div>
+    </div>
+    <!--/ Real world Results image. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <video id="teaser" autoplay muted loop playsinline height="100%">
+            <source src="./static/videos/vltsafe_video.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container has-text-centered is-max-desktop">
+    <h2 class="title is-3">Video</h2>
+    <div class="columns is-centered">
+      <div class="column">
+        <video id="dollyzoom" autoplay controls muted loop playsinline style="width: 80%; height: auto;">
+          <source src="./static/videos/vltsafe_video.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <!-- <div class="column">
+        <h2 class="title is-3">Matting</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              As a byproduct of our method, we can also solve the matting problem by ignoring
+              samples that fall outside of a bounding box during rendering.
+            </p>
+            <video id="matting-video" controls playsinline height="100%">
+              <source src="./static/videos/matting.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div> -->
+    <!-- </div> -->
+    <!--/ Matting. -->
+
+    <!-- Animation. -->
+    <!-- <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Animation</h2> -->
+
+        <!-- Interpolating. -->
+        <!-- <h3 class="title is-4">Interpolating states</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
+          </div>
+        </div>
+        <br/> -->
+        <!--/ Interpolating. -->
+
+        <!-- Re-rendering. -->
+        <!-- <h3 class="title is-4">Re-rendering the input video</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <!--/ Re-rendering. -->
+
+      <!-- </div>
+    </div> -->
+    <!--/ Animation. -->
+
+
+    <!-- Concurrent Work. -->
+    <!-- <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2> -->
+
+        <!-- <div class="content has-text-justified">
+          <p>
+            There's a lot of excellent work that was introduced around the same time as ours.
+          </p>
+          <p>
+            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
+          </p>
+          <p>
+            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
+            both use deformation fields to model non-rigid scenes.
+          </p>
+          <p>
+            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
+          </p>
+          <p>
+            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
+          </p>
+        </div> -->
+      <!-- </div>
+    </div> -->
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{vltsafe2025,
+      author    = {Anonymous Author},
+      title     = {Vision-Language Guided Safe Dynamic Manipulation via Object-Centric Transformers},
+      journal   = {arXiv},
+      year      = {20XX},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
